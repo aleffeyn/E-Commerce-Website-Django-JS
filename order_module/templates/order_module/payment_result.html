@@ -1,0 +1,26 @@
+{% extends 'shared/_layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'نتیجه پرداخت' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% if success %}
+                    <div class="alert alert-success">
+                        {% trans 'پرداخت با کد پیگیری:' %} {{ RefID }} {% trans 'موفقیت انجام شد.' %}
+                    </div>
+                {% endif %}
+
+                {% if error %}
+                    <div class="alert alert-danger">
+                    {{ error }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

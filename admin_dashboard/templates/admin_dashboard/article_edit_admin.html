@@ -1,0 +1,79 @@
+{% extends 'shared/admin_panel/_admin_layout.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+    ویرایش مقاله
+{% endblock %}
+
+
+{% block title2 %} ویرایش مقاله {{ article.title }} {% endblock %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">فرم ویرایش مقاله</h6>
+                    <a href="{% url 'article_list_admin' %}" class="btn btn-outline-secondary btn-sm mb-0">بازگشت به لیست</a>
+                </div>
+            </div>
+            <div class="card-body pt-3">
+                <form action="{% url 'article_edit_admin' pk=article.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger text-white">
+                            {% for error in form.non_field_errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="row">
+                        {% for field in form %}
+                            <div class="col-12 mb-3">
+                                {% if field.field.widget.input_type == 'checkbox' %}
+                                    <div class="form-check form-switch ps-0">
+                                        {% if field.errors %}
+                                            {% render_field field class="form-check-input ms-auto is-invalid" %}
+                                        {% else %}
+                                            {% render_field field class="form-check-input ms-auto" %}
+                                        {% endif %}
+                                        <label for="{{ field.id_for_label }}" class="form-check-label me-4">{{ field.label }}</label>
+                                    </div>
+                                {% else %}
+                                    <label for="{{ field.id_for_label }}" class="form-control-label">{{ field.label }}</label>
+                                    {% if field.errors %}
+                                        {% render_field field class="form-control is-invalid" %}
+                                    {% else %}
+                                        {% render_field field class="form-control" %}
+                                    {% endif %}
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <div class="invalid-feedback d-block">{{ error }}</div>
+                                {% endfor %}
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    {% if article.image %}
+                        <div class="mb-3">
+                            <label class="form-control-label">تصویر فعلی مقاله</label>
+                            <div>
+                                <img src="{{ article.image.url }}" alt="{{ article.title }}" class="img-fluid border-radius-lg shadow-sm" style="max-height: 220px;">
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{% url 'article_list_admin' %}" class="btn btn-light mb-0">انصراف</a>
+                        <button type="submit" class="btn bg-gradient-primary mb-0">ذخیره تغییرات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

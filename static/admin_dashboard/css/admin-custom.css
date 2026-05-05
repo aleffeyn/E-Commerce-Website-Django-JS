@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'IRANSans';
+    src: local('IRANSans'),
+         local('IRANSansWeb'),
+         url('/static/admin_dashboard/fonts/IRANSansWeb.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+.admin-dashboard,
+.admin-dashboard * {
+    font-family: 'IRANSans', 'BYekan', 'Tahoma', sans-serif !important;
+}
+
+.article-table td,
+.article-table th {
+    vertical-align: middle;
+}
+
+.article-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 260px;
+}
+
+.article-info__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.article-info__meta {
+    min-width: 0;
+}
+
+.article-info__title {
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.article-info__categories {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.article-author {
+    min-width: 180px;
+}

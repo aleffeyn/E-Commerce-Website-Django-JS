@@ -1,0 +1,44 @@
+{% load render_partial %}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/admin_dashboard/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/static/admin_dashboard/img/favicon.png">
+  <title>
+    داشبورد ادمین
+  </title>
+    {% include 'shared/admin_panel/header_references.html' %}
+
+</head>
+
+<body class="g-sidenav-show rtl bg-gray-100 admin-dashboard">
+  {% include 'shared/admin_panel/sidebar_component.html' %}
+  <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg overflow-hidden">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 ">
+            <li class="breadcrumb-item text-sm ps-2"><a class="opacity-5 text-dark" href="javascript:;">داشبورد ادمین</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{% block title %}{% endblock %}</li>
+          </ol>
+          <h6 class="font-weight-bolder mb-0">{% block title2 %}{% endblock %}</h6>
+        </nav>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+  </main>
+ 
+{% include 'shared/admin_panel/footer_references.html' %}
+</body>
+
+</html>

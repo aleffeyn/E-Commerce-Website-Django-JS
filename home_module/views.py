@@ -1,0 +1,71 @@
+from django.db.models import Count
+from django.shortcuts import render
+from django.views import View
+from django.views.generic.base import TemplateView
+
+from product_module.models import Product, ProductVisit, ProductCategory
+from site_module.models import SiteSetting, FooterLinkBox, Slider
+from utils.conventors import group_list
+from utils.http_service import get_client_ip
+
+
+# Create your views here.
+
+# def index_page(request):
+#     return render(request, 'home_module/index_page.html')
+
+# class HomeView(View):
+#     def get(self, request):
+#         return render(request, 'home_module/index_page.html')
+
+class HomeView(TemplateView):
+    template_name = 'home_module/index_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slider = Slider.objects.filter(is_active=True)
+        recent_products = Product.objects.filter(is_active=True, is_delete=False).order_by('-id')[:12]
+        most_visited_products = Product.objects.filter(is_active=True, is_delete=False).annotate(visit_count = Count('productvisit')).order_by('-visit_count')[:12]
+        most_bought_products = Product.objects.filter(is_active=True, is_delete=False , orderdetail__order__is_paid=True).annotate(buy_count = Count('orderdetail__count')).order_by('-buy_count')[:12]
+        categories = list(ProductCategory.objects.annotate(products_count = Count('product_categories')).filter(is_active=True, is_delete=False , products_count__gt=0))
+        categories_products = []
+        for category in categories:
+            item = {
+                'id': category.id,
+                'title': category.title,
+                'products' : list(category.product_categories.all())
+            }
+            categories_products.append(item)
+
+        context['categories_products'] = categories_products
+        context['most_visited_products'] = group_list(most_visited_products)
+        context['recent_products'] = group_list(recent_products)
+        context['most_bought_products'] = group_list(most_bought_products)
+        context['sliders'] = slider
+
+        return context
+
+
+
+def site_header_component(request):
+    setting = SiteSetting.objects.filter(is_main_setting=True).first()
+    context = {'setting': setting}
+    return render(request, 'shared/site_header_component.html', context)
+
+def site_footer_component(request):
+    setting = SiteSetting.objects.filter(is_main_setting=True).first()
+    footer_link_boxes = FooterLinkBox.objects.all()
+    context = {
+        'setting': setting,
+        'footer_link_boxes': footer_link_boxes,
+    }
+    return render(request, 'shared/site_footer_component.html', context)
+
+class AboutUsView(TemplateView):
+    template_name = 'home_module/about_us_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        setting = SiteSetting.objects.filter(is_main_setting=True).first()
+        context['setting'] = setting
+        return context

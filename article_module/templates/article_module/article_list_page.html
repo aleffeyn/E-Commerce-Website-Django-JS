@@ -1,0 +1,66 @@
+{% extends 'shared/_layout.html' %}
+{% load thumbnail %}
+{% load poll_extras %}
+{% load render_partial %}
+{% load i18n %}
+
+{% block title %}
+	{% trans 'صفحه مقالات' %}
+{% endblock %}
+
+{% block content %}
+	<section>
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-9">
+					<div class="blog-post-area">
+						<h2 class="title text-center">{% trans 'آخرین اخبار' %}</h2>
+                        {% for article in object_list %}
+						    <div class="single-blog-post">
+							<h3>{{ article.title }}</h3>
+							<div class="post-meta">
+								<ul>
+									<li><i class="fa fa-user"></i>{{ article.author }}1</li>
+									<li><i class="fa fa-clock-o"></i> {{ article.get_jalali_create_time }}</li>
+									<li><i class="fa fa-calendar"></i>{{ article.created_at | show_jalaali_date }}</li>
+								</ul>
+								<span>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-half-o"></i>
+								</span>
+							</div>
+							<a href="">
+                                {% thumbnail article.image "200x100" crop="center" as im %}
+                                    <img src="{{ im.url }}" alt="">
+                                {% endthumbnail %}
+							</a>
+							<p>{{ article.short_description }}</p>
+							<a class="btn btn-primary" href="{% url 'article_detail' pk=article.id %}">{% trans 'ادامه مطلب' %}</a>
+						</div>
+                        {% endfor %}
+
+						<div class="clearfix"></div>
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                            	    <li><a href="?page={{ page_obj.previous_page_number }}">{% trans 'قبلی' %}</a></li>
+                                {% endif %}
+                                {% for page_number in paginator.page_range %}
+                            	    <li class="{% if page_obj.number == page_number %} active {% endif %}"><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                	<li><a href="?page={{ page_obj.next_page_number }}">{% trans 'بعدی' %}</a></li>
+                                {% endif %}
+                            </ul>
+					</div>
+				</div>
+
+				{% render_partial 'article_module.views.article_filter_component' %}
+
+			</div>
+		</div>
+	</section>
+{% endblock %}

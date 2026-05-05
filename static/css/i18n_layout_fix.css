@@ -1,0 +1,133 @@
+/* Language switcher visibility */
+.top-right-tools {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.language-switcher-box {
+    display: inline-block;
+}
+
+.language-switcher-form {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.language-switcher-label {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.language-switcher-select {
+    height: 30px;
+    min-width: 120px;
+    border: 1px solid #fdb45e;
+    background: #fff;
+    color: #333;
+    font-size: 13px;
+    padding: 3px 8px;
+    border-radius: 3px;
+}
+
+.middle-language-switcher {
+    margin-top: 10px;
+}
+
+html[dir="rtl"] .middle-language-switcher {
+    margin-left: 12px;
+}
+
+html[dir="ltr"] .middle-language-switcher {
+    margin-right: 12px;
+}
+
+/* Base directional behavior */
+html[dir="rtl"] body {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="ltr"] body {
+    direction: ltr;
+    text-align: left;
+}
+
+/* Header/menu alignment for non-Persian languages */
+html[dir="ltr"] .navbar-nav > li {
+    float: left;
+}
+
+html[dir="ltr"] .contactinfo .nav li:first-child {
+    margin-right: 15px;
+}
+
+@media (max-width: 767px) {
+    .middle-language-switcher {
+        float: none !important;
+        margin: 0 0 10px 0;
+    }
+
+    .language-switcher-form {
+        justify-content: flex-start;
+    }
+}
+
+/* Make tables/readability better on LTR */
+html[dir="ltr"] .text-right {
+    text-align: left;
+}
+
+/* Keep form controls readable in both directions */
+html[dir="ltr"] input,
+html[dir="ltr"] textarea,
+html[dir="ltr"] select {
+    direction: ltr;
+    text-align: left;
+}
+
+.search_box {
+    position: relative;
+}
+
+.header-search-form {
+    margin: 0;
+}
+
+.header-search-suggestions {
+    display: none;
+    position: absolute;
+    top: 38px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.header-search-suggestions li {
+    list-style: none;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.header-search-suggestions li:last-child {
+    border-bottom: none;
+}
+
+.header-search-suggestions li a {
+    display: block;
+    padding: 8px 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.header-search-suggestions li a:hover {
+    background: #f7f7f7;
+}

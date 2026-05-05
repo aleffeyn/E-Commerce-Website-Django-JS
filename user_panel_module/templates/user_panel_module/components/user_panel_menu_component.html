@@ -1,0 +1,15 @@
+{% load i18n %}
+<ul class="list-group">
+    <li class="list-group-item">
+        <a href="{% url 'user_panel_page' %}">{% trans 'پنل کاربری' %}</a>
+    </li>
+    <li class="list-group-item">
+        <a href="{% url 'edit_profile' %}">{% trans 'ویرایش اطلاعات' %}</a>
+    </li>
+    <li class="list-group-item">
+        <a href="{% url 'shoppings_list' %}">{% trans 'لیست خرید های قبلی' %}</a>
+    </li>
+    <li class="list-group-item">
+        <a href="{% url 'change_password' %}">{% trans 'تغییر کلمه عبور' %}</a>
+    </li>
+</ul>

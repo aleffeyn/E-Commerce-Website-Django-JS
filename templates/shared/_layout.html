@@ -1,0 +1,25 @@
+{% load render_partial %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_CODE == 'fa' %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block title %}{% endblock %}</title>
+    {% include 'shared/header_references.html' %}
+</head><!--/head-->
+
+<body class="lang-{{ LANGUAGE_CODE }}">
+
+ {% render_partial "home_module.views.site_header_component" %}
+
+    {% block content %}
+    {% endblock %}
+
+ {% render_partial 'home_module.views.site_footer_component' %}
+
+{% include 'shared/footer_references.html' %}
+</body>
+</html>
