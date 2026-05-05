@@ -51,7 +51,7 @@
 							<ul class="nav navbar-nav">
                                 {% if request.user.is_authenticated %}
                                     {% if request.user.is_superuser %}
-                                        <li><a href="/admin"><i class="fa fa-coffee"></i> {% trans 'پنل ادمین' %}</a></li>
+                                        <li><a href="{% url 'dashboard_admin' %}"><i class="fa fa-coffee"></i> {% trans 'پنل ادمین' %}</a></li>
                                     {% endif %}
 								    <li><a href="{% url 'user_panel_page' %}"><i class="fa fa-user"></i> {% trans 'حساب کاربری' %}</a></li>
                                     <li><a href="{% url 'logout_page' %}"><i class="fa fa-sign-out"></i> {% trans 'خروج' %}</a></li>
