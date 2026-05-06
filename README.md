@@ -21,8 +21,27 @@ A complete, scalable, and responsive full-stack with two ready templates to show
 
 
 ## 🚀 Local Installation Setup
-If you would like to run this project locally, follow these steps:
+You can run this project locally using either standard Python/Virtual Environments or using Docker (Recommended).
 
+### Option A: Using Docker (Recommended)
+This project is fully containerized for easy deployment. 
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/aleffeyn/E-Commerce-Website-Django-JS.git](https://github.com/aleffeyn/E-Commerce-Website-Django-JS.git)
+   cd E-Commerce-Website-Django-JS
+2. **Set up Environment Variables:**
+
+   Create a `.env` file in the root directory and add your keys (e.g., `SECRET_KEY=your_secret_key`).
+
+
+3. **Build and Run the Container:**
+   ```bash
+   docker-compose up --build
+   ```
+   The server will now be running at `http://localhost:8000`. Because the local volume is mapped, any code changes you make will instantly sync to the container, and your local `db.sqlite3` database will be preserved.
+
+### Option B: Standard Python Setup
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/aleffeyn/E-Commerce-Website-Django-JS.git
@@ -48,6 +67,8 @@ If you would like to run this project locally, follow these steps:
    python manage.py migrate
    python manage.py runserver
    
+## ☁️ Enterprise Deployment (Kubernetes)
+This repository includes production-ready Kubernetes manifests. The `/k8s` directory contains the Deployment and LoadBalancer Service configurations designed for high availability. Note: The current replicas are set to `1` to maintain SQLite database integrity; for horizontal scaling, the database should be migrated to **PostgreSQL**.  
 ## 📧 Email Configuration (Account Activation & Password Recovery)
 
 This project features a fully functioning email system that sends automated emails for account activation links and password reset requests. To test these features locally, you must configure an SMTP email backend (like a Gmail account) using environment variables.
