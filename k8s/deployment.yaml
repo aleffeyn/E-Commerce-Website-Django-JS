@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: django-shop-container
-          image: your-dockerhub-username/django-shop:latest
+          image: aleffeyn/django-shop:latest
           ports:
           - containerPort: 8000
           envFrom:
