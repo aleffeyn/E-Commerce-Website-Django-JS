@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-shop-deployment
+  labels:
+    app: django-shop
+spec:
+  replicas: 1 # the reason that I set the replicas to 1 is that we are using sqlite, so we shouldn't scale the application.
+  selector:
+    matchLabels:
+      app: django-shop
+  template:
+    metadata:
+      labels:
+        app: django-shop
+    spec:
+      containers:
+        - name: django-shop-container
+          image: your-dockerhub-username/django-shop:latest
+          ports:
+          - containerPort: 8000
+          envFrom:
+          - secretRef:
+              name: django-shop-secrets # k8s security context
